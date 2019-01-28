@@ -3,15 +3,27 @@ import * as path from 'path';
 
 var buildDir = path.join(__dirname, '/dist');
 const app= express.default();
+const router=express.Router();
 
 app.use(express.static('dist'));
+
 
 app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname,'../index.html'));
     console.log(buildDir);
   });
 
-const port = process.env.PORT || '8003';
+
+
+  router.route('users')
+  .post((req,res) =>{
+    
+    res.json({message:'User Data'});
+  });
+
+  app.use('/api', router);
+
+const port = process.env.PORT;
 app.listen(port, () => {
   console.log('We are live on ' + port);
 });
