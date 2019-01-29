@@ -1,29 +1,24 @@
 import * as express from 'express';
 import * as path from 'path';
 
-var buildDir = path.join(__dirname, '/dist');
-const app= express.default();
-const router=express.Router();
+var buildDir = path.join(__dirname);
+const app = express.default();
+const router = express.Router();
 
 app.use(express.static('dist'));
 
 
-app.get('*', function (req, res) {
-    res.sendFile(path.join(__dirname,'../index.html'));
-    console.log(buildDir);
-  });
+app.get('/', (_req, res) => {
+  res.sendFile(path.join(__dirname, '../index.html'));
+  console.log(buildDir);
+});
 
+router.get("/users", (_req, res, _next) => {
+  res.json([{ message: 'User Data' }]);
+});
+app.use('/api', router);
 
-
-  router.route('users')
-  .post((req,res) =>{
-    
-    res.json({message:'User Data'});
-  });
-
-  app.use('/api', router);
-
-const port = process.env.PORT;
+const port = process.env.PORT || 8003;
 app.listen(port, () => {
   console.log('We are live on ' + port);
 });

@@ -7,9 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./node_modules/.bin/tsc -p tsconfig.json",
     "start": "node ./dist/server.js",
-    "postinstall": "npm run build"
+    "postinstall": "./node_modules/.bin/tsc -p tsconfig.json"
   },
-  
   "author": "Louis Maresca",
   "license": "MIT",
   "devDependencies": {
